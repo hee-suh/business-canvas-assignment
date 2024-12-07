@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 interface MemberTableProps {
   records: MemberRecord[];
+  updateRecords: VoidFunction;
   showModal: (id: string) => void;
 }
 
@@ -25,7 +26,7 @@ const columns = [
   })),
 ];
 
-export default function MemberTable({ records, showModal }: MemberTableProps) {
+export default function MemberTable({ records, updateRecords, showModal }: MemberTableProps) {
   const [recordId, setRecordId] = useState('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
@@ -39,6 +40,7 @@ export default function MemberTable({ records, showModal }: MemberTableProps) {
 
   const handleClickDelete = () => {
     memberStorageOperation(recordId);
+    updateRecords();
   };
 
   const onSelectChange = (newSelecteRowKeys: Key[]) => {

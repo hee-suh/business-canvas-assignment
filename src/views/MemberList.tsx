@@ -20,6 +20,10 @@ export default function MemberList() {
     setRecords(storage.getItem('members'));
   }, []);
 
+  const updateRecords = () => {
+    setRecords(storage.getItem('members'));
+  };
+
   const showModal = (id?: string) => {
     if (id) {
       setRecordId(id);
@@ -41,9 +45,14 @@ export default function MemberList() {
         <Button color="primary" variant="solid" icon={<PlusOutlined />} onClick={() => showModal()}>
           추가
         </Button>
-        <MemberFormModal id={recordId} isOpen={isModalOpen} closeModal={closeFormModal} />
+        <MemberFormModal
+          id={recordId}
+          isOpen={isModalOpen}
+          closeModal={closeFormModal}
+          updateRecords={updateRecords}
+        />
       </Flex>
-      <MemberTable records={records} showModal={showModal} />
+      <MemberTable records={records} updateRecords={updateRecords} showModal={showModal} />
     </>
   );
 }

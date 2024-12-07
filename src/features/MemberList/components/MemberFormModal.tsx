@@ -12,6 +12,7 @@ interface ModalProps {
   id?: string;
   isOpen: boolean;
   closeModal: VoidFunction;
+  updateRecords: VoidFunction;
 }
 
 const initialValues = {
@@ -63,11 +64,11 @@ const InputFactory = ({ field, value, onChange }: InputFactoryProps) => {
         />
       );
     case 'checkbox':
-      return <Checkbox onChange={(value) => onChange?.(value)} />;
+      return <Checkbox checked={value} onChange={(value) => onChange?.(value)} />;
   }
 };
 
-export default function MemberFormModal({ id, isOpen, closeModal }: ModalProps) {
+export default function MemberFormModal({ id, isOpen, closeModal, updateRecords }: ModalProps) {
   const [submittable, setSubmittable] = useState(false);
 
   const [form] = Form.useForm();
@@ -98,7 +99,12 @@ export default function MemberFormModal({ id, isOpen, closeModal }: ModalProps) 
       joinDate: values.joinDate.format('YYYY-MM-DD'),
     };
 
-    memberStorageOperation(id, memberRecord);
+    try {
+      memberStorageOperation(id, memberRecord);
+      updateRecords();
+    } catch {
+      alert('회원 정보를 저장하는 중 오류가 발생했습니다');
+    }
 
     closeModal();
   };
