@@ -25,20 +25,47 @@ const initialValues = {
   emailSubscription: false,
 };
 
-const InputFactory = ({ field }: { field: MemberField }) => {
+interface InputFactoryProps {
+  field: MemberField;
+  value?: any;
+  onChange?: (value: any) => void;
+}
+
+const InputFactory = ({ field, value, onChange }: InputFactoryProps) => {
   switch (field.type) {
     case 'text':
-      return <Input placeholder="Input" />;
+      return (
+        <Input placeholder="Input" value={value} onChange={(e) => onChange?.(e.target.value)} />
+      );
     case 'textarea':
-      return <Input.TextArea placeholder="Textarea" style={{ height: 64 }} />;
+      return (
+        <Input.TextArea
+          placeholder="Textarea"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+          style={{ height: 64 }}
+        />
+      );
     case 'date':
-      return <DatePicker placeholder="Select date" maxDate={dayjs(new Date())} showToday={false} />;
+      return (
+        <DatePicker
+          placeholder="Select date"
+          value={value}
+          onChange={(value) => onChange?.(value)}
+          maxDate={dayjs(new Date())}
+          showToday={false}
+        />
+      );
     case 'select':
       return (
-        <Select options={field.options?.map((option) => ({ label: option, value: option }))} />
+        <Select
+          value={value}
+          onChange={(value) => onChange?.(value)}
+          options={field.options?.map((option) => ({ label: option, value: option }))}
+        />
       );
     case 'checkbox':
-      return <Checkbox />;
+      return <Checkbox onChange={(value) => onChange?.(value)} />;
   }
 };
 
@@ -85,10 +112,9 @@ export default function MemberFormModal({ id, isOpen, closeModal }: ModalProps) 
       modalRender={(dom) => (
         <Form
           layout="vertical"
-          name="MemberRecord-form"
+          name="member-form"
           form={form}
           initialValues={initialValues}
-          clearOnDestroy
           onFinish={(values) => handleClickSave(values)}
           requiredMark={(label: ReactNode, { required }: { required?: boolean }) => (
             <Flex gap={4} align="center">
