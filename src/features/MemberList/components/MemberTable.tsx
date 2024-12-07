@@ -1,5 +1,5 @@
 import Table from '@/components/ui/Table';
-import { defaultRecords, fields } from '@/features/MemberList/data/memberData';
+import { fields } from '@/features/MemberList/data/memberData';
 import type { MemberRecord } from '@/models/member.interface';
 import { MoreOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -9,6 +9,7 @@ import type { Key } from 'react';
 import { useState } from 'react';
 
 interface MemberTableProps {
+  records: MemberRecord[];
   showModal: (id: string) => void;
 }
 
@@ -23,8 +24,7 @@ const columns = [
   })),
 ];
 
-export default function MemberTable({ showModal }: MemberTableProps) {
-  const [records, setRecords] = useState(defaultRecords);
+export default function MemberTable({ records, showModal }: MemberTableProps) {
   const [recordId, setRecordId] = useState('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
