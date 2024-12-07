@@ -62,6 +62,9 @@ export default function AntdConfigProvider({ children }: AntdConfigProviderProps
           Form: {
             itemMarginBottom: 20,
           },
+          Table: {
+            headerBorderRadius: 0,
+          },
         },
       }}
     >
