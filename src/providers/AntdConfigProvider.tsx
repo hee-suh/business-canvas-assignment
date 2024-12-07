@@ -1,5 +1,5 @@
 import { ConfigProvider } from 'antd';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface AntdConfigProviderProps {
   children: ReactNode;
@@ -22,10 +22,13 @@ export default function AntdConfigProvider({ children }: AntdConfigProviderProps
           colorPrimaryActive: '#345DD9',
           colorError: '#FF4D4F',
           colorBorder: '#E3E3E3',
+          colorBorderSecondary: '#F0F0F0',
           colorBgContainer: '#FFFFFF',
           colorBgContainerDisabled: '#0000000A',
           colorBgTextHover: '#0000000F',
           colorBgMask: '#00000073',
+          colorFillAlter: '#00000005',
+          colorSplit: '#0000000F',
         },
         components: {
           Typography: {
@@ -40,6 +43,8 @@ export default function AntdConfigProvider({ children }: AntdConfigProviderProps
           },
           Input: {
             borderRadius: 8,
+            paddingInline: 12,
+            paddingBlock: 5,
           },
           Select: {
             borderRadius: 8,
@@ -48,6 +53,14 @@ export default function AntdConfigProvider({ children }: AntdConfigProviderProps
           },
           Checkbox: {
             borderRadius: 6,
+          },
+          DatePicker: {
+            borderRadius: 8,
+            paddingInline: 12,
+            paddingBlock: 5,
+          },
+          Form: {
+            itemMarginBottom: 20,
           },
         },
       }}
