@@ -64,7 +64,9 @@ const InputFactory = ({ field, value, onChange }: InputFactoryProps) => {
         />
       );
     case 'checkbox':
-      return <Checkbox checked={value} onChange={(value) => onChange?.(value)} />;
+      return <Checkbox checked={value} onChange={(e) => onChange?.(e.target.checked)} />;
+    default:
+      return null;
   }
 };
 
@@ -146,7 +148,11 @@ export default function MemberFormModal({ id, isOpen, closeModal, updateRecords 
           rules={field.required ? [{ required: true, message: `${field.name} is required` }] : []}
           valuePropName={field.type === 'checkbox' ? 'checked' : undefined}
         >
-          <InputFactory field={field} />
+          <InputFactory
+            field={field}
+            value={values?.[field.name]}
+            onChange={(value) => form.setFieldValue(field.name, value)}
+          />
         </Form.Item>
       ))}
     </Modal>
