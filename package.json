@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:in-memory": "VITE_STORAGE=in-memory vite",
+    "dev:local-storage": "VITE_STORAGE=local-storage vite"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
