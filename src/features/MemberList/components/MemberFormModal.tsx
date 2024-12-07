@@ -1,20 +1,18 @@
-import { fields } from '@/features/MemberList/data/memberData';
 import Modal from '@/components/ui/Modal';
 import Select from '@/components/ui/Select';
 import type { MemberField, MemberRecord } from '@/models/member.interface';
 import { storage } from '@/utils/storage';
+import { fields } from '@/features/MemberList/data/memberData';
+import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
 import { Checkbox, DatePicker, Flex, Form, Input, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState, type ReactNode } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 interface ModalProps {
   id?: string;
   isOpen: boolean;
   closeModal: VoidFunction;
 }
-
-type MemberForm = Omit<MemberRecord, 'id'>;
 
 const initialValues = {
   name: '',
@@ -76,25 +74,32 @@ export default function MemberFormModal({ id, isOpen, closeModal }: ModalProps) 
   const values = Form.useWatch([], form);
 
   useEffect(() => {
+    if (id) {
+      const records = storage.getItem('members') || [];
+      const member = records.find((record: MemberRecord) => record.id === id);
+      if (member) {
+        form.setFieldsValue({ ...member, joinDate: dayjs(member.joinDate) });
+      } else {
+        closeModal();
+      }
+    }
+  }, [id]);
+
+  useEffect(() => {
     form
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
       .catch(() => setSubmittable(false));
   }, [form, values]);
 
-  const updateMemberInStorage = (MemberRecord: MemberForm) => {
-    const members = storage.getItem('members') || [];
-    members.push(MemberRecord);
-    storage.setItem('members', members);
-  };
-
-  const handleClickSave = (values: Omit<MemberForm, 'joinDate'> & { joinDate: dayjs.Dayjs }) => {
-    const MemberRecord = {
-      id: uuidv4(),
+  const handleClickSave = () => {
+    const memberRecord = {
       ...values,
       joinDate: values.joinDate.format('YYYY-MM-DD'),
     };
-    updateMemberInStorage(MemberRecord);
+
+    memberStorageOperation(id, memberRecord);
+
     closeModal();
   };
 
@@ -115,7 +120,7 @@ export default function MemberFormModal({ id, isOpen, closeModal }: ModalProps) 
           name="member-form"
           form={form}
           initialValues={initialValues}
-          onFinish={(values) => handleClickSave(values)}
+          onFinish={handleClickSave}
           requiredMark={(label: ReactNode, { required }: { required?: boolean }) => (
             <Flex gap={4} align="center">
               {label}

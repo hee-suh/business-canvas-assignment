@@ -1,5 +1,6 @@
 import Table from '@/components/ui/Table';
 import { fields } from '@/features/MemberList/data/memberData';
+import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
 import type { MemberRecord } from '@/models/member.interface';
 import { MoreOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -32,11 +33,13 @@ export default function MemberTable({ records, showModal }: MemberTableProps) {
     setRecordId(id);
   };
 
-  const handleClickEdit = () => {
+  const handleClickUpdate = () => {
     showModal(recordId);
   };
 
-  const handleClickRemove = () => {};
+  const handleClickDelete = () => {
+    memberStorageOperation(recordId);
+  };
 
   const onSelectChange = (newSelecteRowKeys: Key[]) => {
     setSelectedRowKeys(newSelecteRowKeys);
@@ -51,7 +54,7 @@ export default function MemberTable({ records, showModal }: MemberTableProps) {
     {
       key: 'edit',
       label: (
-        <Button type="text" onClick={handleClickEdit}>
+        <Button type="text" onClick={handleClickUpdate}>
           수정
         </Button>
       ),
@@ -62,7 +65,7 @@ export default function MemberTable({ records, showModal }: MemberTableProps) {
     {
       key: 'remove',
       label: (
-        <Button type="text" danger onClick={handleClickRemove}>
+        <Button type="text" danger onClick={handleClickDelete}>
           삭제
         </Button>
       ),
