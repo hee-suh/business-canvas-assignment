@@ -34,6 +34,9 @@ export default function AntdConfigProvider({ children }: AntdConfigProviderProps
           },
           Button: {
             borderRadius: 8,
+            colorTextLightSolid: '#FFFFFF',
+            paddingBlock: 0,
+            paddingInline: 12,
           },
           Input: {
             borderRadius: 8,

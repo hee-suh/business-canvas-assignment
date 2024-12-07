@@ -1,10 +1,10 @@
-import { Typography } from 'antd';
 import AntdConfigProvider from '@/providers/AntdConfigProvider';
+import MemberList from '@/views/MemberList';
 
 function App() {
   return (
     <AntdConfigProvider>
-      <Typography.Title level={5}>회원 목록</Typography.Title>
+      <MemberList />
     </AntdConfigProvider>
   );
 }
