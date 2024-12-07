@@ -1,10 +1,13 @@
 import AntdConfigProvider from '@/providers/AntdConfigProvider';
+import StyledThemeProvider from '@/providers/StyledThemeProvider';
 import MemberList from '@/views/MemberList';
 
 function App() {
   return (
     <AntdConfigProvider>
-      <MemberList />
+      <StyledThemeProvider>
+        <MemberList />
+      </StyledThemeProvider>
     </AntdConfigProvider>
   );
 }
