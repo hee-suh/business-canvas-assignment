@@ -17,6 +17,9 @@ dependencies:
   react-dom:
     specifier: ^18.3.1
     version: 18.3.1(react@18.3.1)
+  uuid:
+    specifier: ^11.0.3
+    version: 11.0.3
 
 devDependencies:
   '@eslint/js':
@@ -2609,6 +2612,11 @@ packages:
     dependencies:
       punycode: 2.3.1
     dev: true
+
+  /uuid@11.0.3:
+    resolution: {integrity: sha512-d0z310fCWv5dJwnX1Y/MncBAqGMKEzlBb1AOf7z9K8ALnd0utBX/msg/fA0+sbyN1ihbMsLhrBlnl1ak7Wa0rg==}
+    hasBin: true
+    dev: false
 
   /vite@6.0.1:
     resolution: {integrity: sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==}
