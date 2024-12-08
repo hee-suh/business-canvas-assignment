@@ -45,6 +45,7 @@ export const customTheme: Partial<ThemeConfig> = {
     },
     Form: {
       itemMarginBottom: 20,
+      controlHeight: 22,
     },
     Table: {
       headerBorderRadius: 0,
