@@ -1,12 +1,12 @@
 import Modal from '@/components/ui/Modal';
-import Select from '@/components/ui/Select';
 import type { MemberField, MemberRecord } from '@/models/member.interface';
 import { storage } from '@/utils/storage';
 import { fields } from '@/features/MemberList/data/memberData';
 import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
-import { Checkbox, DatePicker, Flex, Form, Input, Typography } from 'antd';
+import { Flex, Form, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState, type ReactNode } from 'react';
+import { InputFactory } from '@/components/ui/InputFactory';
 
 interface ModalProps {
   id?: string;
@@ -22,52 +22,6 @@ const initialValues = {
   joinDate: null,
   job: '개발자',
   emailSubscription: false,
-};
-
-interface InputFactoryProps {
-  field: MemberField;
-  value?: any;
-  onChange?: (value: any) => void;
-}
-
-const InputFactory = ({ field, value, onChange }: InputFactoryProps) => {
-  switch (field.type) {
-    case 'text':
-      return (
-        <Input placeholder="Input" value={value} onChange={(e) => onChange?.(e.target.value)} />
-      );
-    case 'textarea':
-      return (
-        <Input.TextArea
-          placeholder="Textarea"
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
-          style={{ height: 64 }}
-        />
-      );
-    case 'date':
-      return (
-        <DatePicker
-          placeholder="Select date"
-          value={value}
-          onChange={(value) => onChange?.(value)}
-          maxDate={dayjs(new Date())}
-          showToday={false}
-        />
-      );
-    case 'select':
-      return (
-        <Select
-          value={value}
-          onChange={(value) => onChange?.(value)}
-          options={field.options?.map((option) => ({ label: option, value: option }))}
-        />
-      );
-    case 'checkbox':
-      return <Checkbox checked={value} onChange={(e) => onChange?.(e.target.checked)} />;
-    default:
-      return null;
-  }
 };
 
 export default function MemberFormModal({ id, isOpen, closeModal, updateRecords }: ModalProps) {
@@ -148,7 +102,7 @@ export default function MemberFormModal({ id, isOpen, closeModal, updateRecords 
           rules={field.required ? [{ required: true, message: `${field.name} is required` }] : []}
           valuePropName={field.type === 'checkbox' ? 'checked' : undefined}
         >
-          <InputFactory
+          <InputFactory<MemberField>
             field={field}
             value={values?.[field.name]}
             onChange={(value) => form.setFieldValue(field.name, value)}
