@@ -1,11 +1,11 @@
-import { CheckboxGroup } from '@/components/ui/CheckboxGroup';
+import Checkbox from '@/components/ui/Checkbox';
 import Table from '@/components/ui/Table';
 import { fields } from '@/features/MemberList/data/memberData';
 import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
 import type { MemberRecord } from '@/models/member.interface';
 import { MoreOutlined } from '@ant-design/icons';
 import type { MenuProps, TableColumnType } from 'antd';
-import { Button, Checkbox, Dropdown } from 'antd';
+import { Button, Dropdown } from 'antd';
 import type { TableRowSelection } from 'antd/es/table/interface';
 import type { Key } from 'react';
 import { useState } from 'react';
@@ -37,7 +37,7 @@ export default function MemberTable({ records, updateRecords, showModal }: Membe
         });
 
       return (
-        <CheckboxGroup
+        <Checkbox.Group
           options={uniqueOptions}
           value={selectedKeys as (string | boolean)[]}
           onChange={(checkedValues) => {

@@ -17,6 +17,9 @@ const Modal = styled(AntdModal)`
     background-color: ${(props) => props.theme.antd.colorFillAlter};
     border: 1px solid ${(props) => props.theme.antd.colorSplit};
   }
+  .ant-form-item-label > label {
+    color: ${(props) => props.theme.antd.colorTextTertiary};
+  }
 `;
 
 export default Modal;

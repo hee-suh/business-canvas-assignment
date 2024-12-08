@@ -1,6 +1,8 @@
+import Checkbox from '@/components/ui/Checkbox';
+import DatePicker from '@/components/ui/DatePicker';
+import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import type { Field, SelectField } from '@/models/field.interface';
-import { Checkbox, DatePicker, Input } from 'antd';
 import dayjs from 'dayjs';
 
 interface InputFactoryProps<T> {
@@ -25,12 +27,12 @@ export const InputFactory = <T extends Field | SelectField>({
           placeholder="Textarea"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
-          style={{ height: 64 }}
         />
       );
     case 'date':
       return (
         <DatePicker
+          placement="bottomLeft"
           placeholder="Select date"
           value={value}
           onChange={(value) => onChange?.(value)}
