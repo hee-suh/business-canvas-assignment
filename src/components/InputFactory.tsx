@@ -2,7 +2,7 @@ import Checkbox from '@/components/ui/Checkbox';
 import DatePicker from '@/components/ui/DatePicker';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
-import type { Field, SelectField } from '@/models/field.interface';
+import type { Field } from '@/models/field.interface';
 import dayjs from 'dayjs';
 
 interface InputFactoryProps<T> {
@@ -11,11 +11,7 @@ interface InputFactoryProps<T> {
   onChange?: (value: any) => void;
 }
 
-const InputFactory = <T extends Field | SelectField>({
-  field,
-  value,
-  onChange,
-}: InputFactoryProps<T>) => {
+const InputFactory = <T extends Field>({ field, value, onChange }: InputFactoryProps<T>) => {
   switch (field.type) {
     case 'text':
       return (

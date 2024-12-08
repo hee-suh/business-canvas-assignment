@@ -1,14 +1,13 @@
 import Checkbox from '@/components/ui/Checkbox';
 import Table from '@/components/ui/Table';
+import { createActionColumn } from '@/components/ui/Table/utils/createActionColumn';
+import { createColumnFilters } from '@/components/ui/Table/utils/createColumnFilters';
 import { fields } from '@/features/MemberList/data/memberData';
 import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
 import type { MemberRecord } from '@/models/member.interface';
-import { MoreOutlined } from '@ant-design/icons';
-import type { MenuProps, TableColumnType } from 'antd';
-import { Button, Dropdown } from 'antd';
-import type { TableRowSelection } from 'antd/es/table/interface';
+import type { ColumnGroupType, ColumnType, TableRowSelection } from 'antd/es/table/interface';
 import type { Key } from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 interface MemberTableProps {
   records: MemberRecord[];
@@ -20,53 +19,14 @@ export default function MemberTable({ records, updateRecords, showModal }: Membe
   const [recordId, setRecordId] = useState('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
-  const getColumnFilterProps = (dataIndex: keyof MemberRecord): TableColumnType<MemberRecord> => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => {
-      const uniqueOptions = [...new Set(records.map((item) => item[dataIndex]))]
-        .filter((x) => x !== undefined && x !== null && x !== '')
-        .map((option) => {
-          return {
-            label:
-              dataIndex === 'emailSubscription'
-                ? option
-                  ? '선택됨'
-                  : '선택 안함'
-                : String(option),
-            value: option,
-          };
-        });
+  const onSelectChange = (newSelecteRowKeys: Key[]) => {
+    setSelectedRowKeys(newSelecteRowKeys);
+  };
 
-      return (
-        <Checkbox.Group
-          options={uniqueOptions}
-          value={selectedKeys as (string | boolean)[]}
-          onChange={(checkedValues) => {
-            setSelectedKeys(checkedValues as Key[]);
-            confirm();
-          }}
-        />
-      );
-    },
-    onFilter: (value, record) => {
-      const field = record[dataIndex];
-      if (dataIndex === 'emailSubscription') {
-        return value === field;
-      } else {
-        return String(field).includes(String(value));
-      }
-    },
-  });
-
-  const columns = [
-    ...fields.map((field) => ({
-      title: field.label,
-      dataIndex: field.name,
-      key: field.name,
-      render: (value: string | boolean) =>
-        field.type === 'checkbox' ? <Checkbox checked={Boolean(value)} /> : value,
-      ...getColumnFilterProps(field.name),
-    })),
-  ];
+  const rowSelection: TableRowSelection<MemberRecord> = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
 
   const handleClickAction = (id: string) => {
     setRecordId(id);
@@ -81,56 +41,40 @@ export default function MemberTable({ records, updateRecords, showModal }: Membe
     updateRecords();
   };
 
-  const onSelectChange = (newSelecteRowKeys: Key[]) => {
-    setSelectedRowKeys(newSelecteRowKeys);
-  };
+  const actionColumn = useMemo(() => {
+    return createActionColumn<MemberRecord>(
+      [
+        { key: 'edit', label: '수정', onClick: handleClickUpdate },
+        { key: 'delete', label: '삭제', danger: true, onClick: handleClickDelete },
+      ],
+      (record) => {
+        if (record) {
+          handleClickAction(record.id);
+        }
+      },
+    );
+  }, [showModal, updateRecords]);
 
-  const rowSelection: TableRowSelection<MemberRecord> = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-
-  const items: MenuProps['items'] = [
-    {
-      key: 'edit',
-      label: (
-        <Button type="text" onClick={handleClickUpdate}>
-          수정
-        </Button>
-      ),
-    },
-    {
-      type: 'divider',
-    },
-    {
-      key: 'remove',
-      label: (
-        <Button type="text" danger onClick={handleClickDelete}>
-          삭제
-        </Button>
-      ),
-    },
-  ];
+  const columns: (ColumnType<MemberRecord> | ColumnGroupType<MemberRecord>)[] = useMemo(
+    () => [
+      ...fields.map((field) => ({
+        title: field.label,
+        dataIndex: field.name,
+        key: field.name,
+        render: (value: string | boolean) =>
+          field.type === 'checkbox' ? <Checkbox checked={Boolean(value)} /> : value,
+        ...createColumnFilters<MemberRecord>(field.type, field.name, records),
+      })),
+      actionColumn,
+    ],
+    [actionColumn],
+  );
 
   return (
     <Table<MemberRecord>
       className="member-table"
       rowSelection={rowSelection}
-      columns={[
-        ...columns,
-        {
-          key: 'actions',
-          render: (_, record) => (
-            <Dropdown menu={{ items }} placement="bottomRight">
-              <Button
-                type="text"
-                icon={<MoreOutlined />}
-                onClick={() => handleClickAction(record.id)}
-              />
-            </Dropdown>
-          ),
-        },
-      ]}
+      columns={columns}
       dataSource={records.map((record, index) => ({ ...record, key: index }))}
       pagination={{ hideOnSinglePage: true }}
     />

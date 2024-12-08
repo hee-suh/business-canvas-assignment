@@ -1,4 +1,4 @@
-export interface Field<TName extends string = string, TLabel extends string = string> {
+export interface BaseField<TName extends string = string, TLabel extends string = string> {
   type: 'text' | 'textarea' | 'date' | 'checkbox';
   name: TName;
   label: TLabel;
@@ -12,3 +12,5 @@ export interface SelectField<TName extends string = string, TLabel extends strin
   required: boolean;
   options: string[];
 }
+
+export type Field = BaseField | SelectField;
