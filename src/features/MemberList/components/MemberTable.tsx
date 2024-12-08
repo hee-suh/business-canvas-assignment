@@ -7,7 +7,7 @@ import { memberStorageOperation } from '@/features/MemberList/services/memberSto
 import type { MemberRecord } from '@/models/member.interface';
 import type { ColumnGroupType, ColumnType, TableRowSelection } from 'antd/es/table/interface';
 import type { Key } from 'react';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 interface MemberTableProps {
   records: MemberRecord[];
@@ -16,7 +16,7 @@ interface MemberTableProps {
 }
 
 export default function MemberTable({ records, updateRecords, showModal }: MemberTableProps) {
-  const [recordId, setRecordId] = useState('');
+  const recordIdRef = useRef<string | null>(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const onSelectChange = (newSelecteRowKeys: Key[]) => {
@@ -29,15 +29,19 @@ export default function MemberTable({ records, updateRecords, showModal }: Membe
   };
 
   const handleClickAction = (id: string) => {
-    setRecordId(id);
+    recordIdRef.current = id;
   };
 
   const handleClickUpdate = () => {
-    showModal(recordId);
+    if (recordIdRef.current) {
+      showModal(recordIdRef.current);
+    }
   };
 
   const handleClickDelete = () => {
-    memberStorageOperation(recordId);
+    if (recordIdRef.current) {
+      memberStorageOperation(recordIdRef.current);
+    }
     updateRecords();
   };
 
