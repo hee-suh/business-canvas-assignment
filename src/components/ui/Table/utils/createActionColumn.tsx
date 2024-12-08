@@ -1,6 +1,7 @@
 import { Button, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 interface MenuItemConfig {
   key: string;
@@ -9,15 +10,21 @@ interface MenuItemConfig {
   onClick: VoidFunction;
 }
 
+const MenuButton = styled(Button)`
+  width: 173px;
+  justify-content: start;
+  padding: 0;
+`;
+
 const createMenuItems = (configs: MenuItemConfig[]): MenuProps['items'] => {
   return configs.flatMap((config, index) => {
     const isLastItem = index === configs.length - 1;
     const menuItem = {
       key: config.key,
       label: (
-        <Button type="text" danger={config.danger} onClick={config.onClick}>
+        <MenuButton type="text" danger={config.danger} onClick={config.onClick}>
           {config.label}
-        </Button>
+        </MenuButton>
       ),
     };
     if (!isLastItem) {
@@ -36,7 +43,11 @@ export const createActionColumn = <T extends object>(
     const menuItems = createMenuItems(menuConfigs);
 
     return (
-      <Dropdown menu={{ items: menuItems }} placement="bottomRight">
+      <Dropdown
+        menu={{ items: menuItems }}
+        placement="bottomRight"
+        overlayStyle={{ paddingTop: 8 }}
+      >
         <Button type="text" icon={<MoreOutlined />} onClick={() => onClickAction(record)} />
       </Dropdown>
     );

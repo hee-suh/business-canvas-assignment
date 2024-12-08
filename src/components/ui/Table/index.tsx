@@ -10,6 +10,9 @@ const StyledTableWrapper = styled.div`
     border-right: 1px solid ${(props) => props.theme.antd.colorSplit};
     border-left: 1px solid ${(props) => props.theme.antd.colorSplit};
   }
+  td.ant-table-cell:has(button) {
+    padding: 8px;
+  }
   .ant-table-filter-dropdown {
     border-radius: 10px;
   }
