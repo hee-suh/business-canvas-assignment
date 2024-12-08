@@ -11,7 +11,7 @@ interface InputFactoryProps<T> {
   onChange?: (value: any) => void;
 }
 
-export const InputFactory = <T extends Field | SelectField>({
+const InputFactory = <T extends Field | SelectField>({
   field,
   value,
   onChange,
@@ -54,3 +54,5 @@ export const InputFactory = <T extends Field | SelectField>({
       return null;
   }
 };
+
+export default InputFactory;

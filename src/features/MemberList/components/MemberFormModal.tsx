@@ -6,7 +6,7 @@ import { memberStorageOperation } from '@/features/MemberList/services/memberSto
 import { Flex, Form, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState, type ReactNode } from 'react';
-import { InputFactory } from '@/components/ui/InputFactory';
+import InputFactory from '@/components/InputFactory';
 
 interface ModalProps {
   id?: string;
