@@ -1,5 +1,6 @@
-import { Input as AntdInput } from 'antd';
 import { forwardRef } from 'react';
+
+import { Input as AntdInput } from 'antd';
 import styled from 'styled-components';
 
 const StyledTextArea = styled(AntdInput.TextArea)`

@@ -1,5 +1,6 @@
-import type { MemberField, MemberRecord } from '@/models/member.interface';
 import { v4 as uuidv4 } from 'uuid';
+
+import type { MemberField, MemberRecord } from '@/models/member.interface';
 
 export const fields: MemberField[] = [
   { type: 'text', label: '이름', name: 'name', required: true },

@@ -1,5 +1,6 @@
-import { Checkbox as AntdCheckbox } from 'antd';
 import { forwardRef } from 'react';
+
+import { Checkbox as AntdCheckbox } from 'antd';
 import styled from 'styled-components';
 
 const StyledCheckboxGroup = styled(AntdCheckbox.Group)`

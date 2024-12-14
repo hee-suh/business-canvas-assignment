@@ -1,12 +1,14 @@
-import Modal from '@/components/ui/Modal';
-import type { MemberField, MemberRecord } from '@/models/member.interface';
-import { storage } from '@/utils/storage';
-import { fields } from '@/features/MemberList/data/memberData';
-import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
+import { type ReactNode, useEffect, useState } from 'react';
+
 import { Flex, Form, Typography } from 'antd';
 import dayjs from 'dayjs';
-import { useEffect, useState, type ReactNode } from 'react';
+
 import InputFactory from '@/components/InputFactory';
+import Modal from '@/components/ui/Modal';
+import { fields } from '@/features/MemberList/data/memberData';
+import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
+import type { MemberField, MemberRecord } from '@/models/member.interface';
+import { storage } from '@/utils/storage';
 
 interface ModalSectionProps {
   id?: string;

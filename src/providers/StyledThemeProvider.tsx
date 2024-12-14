@@ -1,5 +1,6 @@
-import { theme } from 'antd';
 import type { ReactNode } from 'react';
+
+import { theme } from 'antd';
 import { ThemeProvider } from 'styled-components';
 
 interface StyledThemeProviderProps {

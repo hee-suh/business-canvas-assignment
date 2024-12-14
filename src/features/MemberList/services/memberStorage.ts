@@ -1,6 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import type { MemberRecord } from '@/models/member.interface';
 import { storage } from '@/utils/storage';
-import { v4 as uuidv4 } from 'uuid';
 
 export type StorageOperation = 'add' | 'update' | 'delete';
 type MemberForm = Omit<MemberRecord, 'id'>;

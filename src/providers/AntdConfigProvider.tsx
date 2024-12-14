@@ -1,6 +1,8 @@
-import { customTheme } from '@/theme/customTheme';
-import { ConfigProvider } from 'antd';
 import type { ReactNode } from 'react';
+
+import { ConfigProvider } from 'antd';
+
+import { customTheme } from '@/theme/customTheme';
 
 interface AntdConfigProviderProps {
   children: ReactNode;

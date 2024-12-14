@@ -1,6 +1,6 @@
+import { MoreOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 interface MenuItemConfig {

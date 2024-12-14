@@ -1,6 +1,6 @@
+import MemberListPage from '@/features/MemberList/MemberListPage';
 import AntdConfigProvider from '@/providers/AntdConfigProvider';
 import StyledThemeProvider from '@/providers/StyledThemeProvider';
-import MemberListPage from '@/features/MemberList/MemberListPage';
 
 function App() {
   return (

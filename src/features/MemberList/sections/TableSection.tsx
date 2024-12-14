@@ -1,3 +1,8 @@
+import type { Key } from 'react';
+import { useMemo, useRef, useState } from 'react';
+
+import type { ColumnGroupType, ColumnType, TableRowSelection } from 'antd/es/table/interface';
+
 import Checkbox from '@/components/ui/Checkbox';
 import Table from '@/components/ui/Table';
 import { createActionColumn } from '@/components/ui/Table/utils/createActionColumn';
@@ -5,9 +10,6 @@ import { createColumnFilters } from '@/components/ui/Table/utils/createColumnFil
 import { fields } from '@/features/MemberList/data/memberData';
 import { memberStorageOperation } from '@/features/MemberList/services/memberStorage';
 import type { MemberRecord } from '@/models/member.interface';
-import type { ColumnGroupType, ColumnType, TableRowSelection } from 'antd/es/table/interface';
-import type { Key } from 'react';
-import { useMemo, useRef, useState } from 'react';
 
 interface TableSectionProps {
   records: MemberRecord[];

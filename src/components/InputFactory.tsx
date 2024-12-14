@@ -1,9 +1,10 @@
+import dayjs from 'dayjs';
+
 import Checkbox from '@/components/ui/Checkbox';
 import DatePicker from '@/components/ui/DatePicker';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import type { Field } from '@/models/field.interface';
-import dayjs from 'dayjs';
 
 interface InputFactoryProps<T> {
   field: T;

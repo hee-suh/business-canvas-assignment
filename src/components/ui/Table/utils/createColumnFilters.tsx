@@ -1,7 +1,9 @@
+import type { Key } from 'react';
+
+import type { TableColumnType } from 'antd';
+
 import Checkbox from '@/components/ui/Checkbox';
 import type { Field } from '@/models/field.interface';
-import type { TableColumnType } from 'antd';
-import type { Key } from 'react';
 
 export const createColumnFilters = <T extends object>(
   type: Field['type'],
