@@ -51,9 +51,9 @@
 
 ```zsh
 pnpm install
-pnpm run dev               # NOTE: default STORAGE는 in-memory입니다.
-pnpm run dev:in-memory     # NOTE: STORAGE가 in-memory로 설정됩니다.
-pnpm run dev:local-storage # NOTE: STORAGE가 local-storage로 설정됩니다.
+pnpm run dev                 # NOTE: default STORAGE는 in-memory입니다.
+# pnpm run dev:in-memory     # NOTE: STORAGE가 in-memory로 설정됩니다.
+# pnpm run dev:local-storage # NOTE: STORAGE가 local-storage로 설정됩니다.
 ```
 
 ## 파일 구조
@@ -77,13 +77,15 @@ src/
 │   └── InputFactory.tsx
 ├── features/                                   # 도메인별 기능 모음
 │   └── MemberList/
-│       ├── components/
-│       │   ├── MemberFormModal.tsx
-│       │   └── MemberTable.tsx
+│       ├── sections/
+│       │   ├── HeaderSection.tsx
+│       │   ├── ModalSection.tsx
+│       │   └── TableSection.tsx
 │       ├── data/
 │       │   └── memberData.ts
-│       └── services/
-│           └── memberStorage.ts
+│       ├── services/
+│       │   └── memberStorage.ts
+│       └── MemberListPage.tsx
 ├── models/                                     # 데이터 모델 정리
 │   ├── field.interface.ts
 │   └── member.interface.ts
@@ -97,8 +99,6 @@ src/
 │       ├── index.ts
 │       ├── inMememoryStorage.ts
 │       └── localStorage.ts
-├── views/                                      # 페이지 단위 컴포넌트
-│   └── MemberList.tsx
 ├── App.tsx
 ├── index.css
 ├── main.tsx
