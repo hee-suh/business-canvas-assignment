@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState, type ReactNode } from 'react';
 import InputFactory from '@/components/InputFactory';
 
-interface ModalProps {
+interface ModalSectionProps {
   id?: string;
   isOpen: boolean;
   closeModal: VoidFunction;
@@ -24,7 +24,7 @@ const initialValues = {
   emailSubscription: false,
 };
 
-export default function MemberFormModal({ id, isOpen, closeModal, updateRecords }: ModalProps) {
+export default function ModalSection({ id, isOpen, closeModal, updateRecords }: ModalSectionProps) {
   const [submittable, setSubmittable] = useState(false);
 
   const [form] = Form.useForm();
