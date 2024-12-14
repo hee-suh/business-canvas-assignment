@@ -2,8 +2,8 @@ import { InMemoryStorage } from '@/utils/storage/inMemoryStorage';
 import { LocalStorage } from '@/utils/storage/localStorage';
 
 export interface StorageInterface {
-  getItem(key: string): any;
-  setItem(key: string, value: any): void;
+  getItem<T>(key: string): T | null;
+  setItem<T>(key: string, value: T): void;
   removeItem(key: string): void;
 }
 

@@ -1,11 +1,11 @@
 import type { StorageInterface } from '@/utils/storage/index';
 
 export class LocalStorage implements StorageInterface {
-  getItem(key: string) {
+  getItem<T>(key: string) {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
+    return item ? (JSON.parse(item) as T) : null;
   }
-  setItem(key: string, value: any) {
+  setItem<T>(key: string, value: T) {
     localStorage.setItem(key, JSON.stringify(value));
   }
   removeItem(key: string): void {

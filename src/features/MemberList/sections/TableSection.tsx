@@ -1,5 +1,5 @@
 import type { Key } from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import type { ColumnGroupType, ColumnType, TableRowSelection } from 'antd/es/table/interface';
 
@@ -24,6 +24,7 @@ export default function TableSection({ records, updateRecords, showModal }: Tabl
   const onSelectChange = (newSelecteRowKeys: Key[]) => {
     setSelectedRowKeys(newSelecteRowKeys);
   };
+
   const rowSelection: TableRowSelection<MemberRecord> = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -32,17 +33,20 @@ export default function TableSection({ records, updateRecords, showModal }: Tabl
   const handleClickAction = (id: string) => {
     recordIdRef.current = id;
   };
-  const handleClickUpdate = () => {
+
+  const handleClickUpdate = useCallback(() => {
     if (recordIdRef.current) {
       showModal(recordIdRef.current);
     }
-  };
-  const handleClickDelete = () => {
+  }, [showModal]);
+
+  const handleClickDelete = useCallback(() => {
     if (recordIdRef.current) {
       memberStorageOperation(recordIdRef.current);
     }
     updateRecords();
-  };
+  }, [updateRecords]);
+
   const actionColumn = useMemo(() => {
     return createActionColumn<MemberRecord>(
       [
@@ -55,7 +59,8 @@ export default function TableSection({ records, updateRecords, showModal }: Tabl
         }
       },
     );
-  }, [showModal, updateRecords]);
+  }, [handleClickDelete, handleClickUpdate]);
+
   const columns: (ColumnType<MemberRecord> | ColumnGroupType<MemberRecord>)[] = useMemo(
     () => [
       ...fields.map((field) => ({
@@ -68,7 +73,7 @@ export default function TableSection({ records, updateRecords, showModal }: Tabl
       })),
       actionColumn,
     ],
-    [actionColumn],
+    [actionColumn, records],
   );
 
   return (

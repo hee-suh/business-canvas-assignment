@@ -1,12 +1,12 @@
 import type { StorageInterface } from '@/utils/storage/index';
 
 export class InMemoryStorage implements StorageInterface {
-  private storage: Record<string, any> = {};
+  private storage: Record<string, unknown> = {};
 
-  getItem(key: string) {
-    return this.storage[key] || null;
+  getItem<T>(key: string) {
+    return (this.storage[key] as T) || null;
   }
-  setItem(key: string, value: any) {
+  setItem<T>(key: string, value: T): void {
     this.storage[key] = value;
   }
   removeItem(key: string) {

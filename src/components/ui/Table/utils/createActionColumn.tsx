@@ -1,7 +1,6 @@
 import { MoreOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
-import styled from 'styled-components';
 
 interface MenuItemConfig {
   key: string;
@@ -10,21 +9,20 @@ interface MenuItemConfig {
   onClick: VoidFunction;
 }
 
-const MenuButton = styled(Button)`
-  width: 173px;
-  justify-content: start;
-  padding: 0;
-`;
-
 const createMenuItems = (configs: MenuItemConfig[]): MenuProps['items'] => {
   return configs.flatMap((config, index) => {
     const isLastItem = index === configs.length - 1;
     const menuItem = {
       key: config.key,
       label: (
-        <MenuButton type="text" danger={config.danger} onClick={config.onClick}>
+        <Button
+          type="text"
+          danger={config.danger}
+          onClick={config.onClick}
+          style={{ width: 173, justifyContent: 'start', padding: 0 }}
+        >
           {config.label}
-        </MenuButton>
+        </Button>
       ),
     };
     if (!isLastItem) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { defaultRecords } from '@/features/MemberList/data/memberData';
 import HeaderSection from '@/features/MemberList/sections/HeaderSection';
@@ -13,7 +13,7 @@ export default function MemberListPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const members = storage.getItem('members');
+    const members = storage.getItem<MemberRecord[]>('members');
     if (!members) {
       storage.setItem('members', defaultRecords);
       setRecords(defaultRecords);
@@ -23,7 +23,7 @@ export default function MemberListPage() {
   }, []);
 
   const updateRecords = () => {
-    setRecords(storage.getItem('members') || []);
+    setRecords(storage.getItem<MemberRecord[]>('members') || []);
   };
 
   const showModal = (id?: string) => {
@@ -31,10 +31,10 @@ export default function MemberListPage() {
     setIsModalOpen(true);
   };
 
-  const closeFormModal = () => {
+  const closeFormModal = useCallback(() => {
     setRecordId('');
     setIsModalOpen(false);
-  };
+  }, []);
 
   return (
     <>

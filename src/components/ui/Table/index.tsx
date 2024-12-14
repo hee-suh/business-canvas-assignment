@@ -1,4 +1,5 @@
-import { Table as AntdTable, TableProps } from 'antd';
+import type { TableProps } from 'antd';
+import { Table as AntdTable } from 'antd';
 import styled from 'styled-components';
 
 const StyledTableWrapper = styled.div`
@@ -18,7 +19,7 @@ const StyledTableWrapper = styled.div`
   }
 `;
 
-function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
+function Table<RecordType extends object>(props: TableProps<RecordType>) {
   return (
     <StyledTableWrapper>
       <AntdTable

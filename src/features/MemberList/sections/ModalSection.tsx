@@ -1,4 +1,5 @@
-import { type ReactNode, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Flex, Form, Typography } from 'antd';
 import dayjs from 'dayjs';
@@ -33,16 +34,17 @@ export default function ModalSection({ id, isOpen, closeModal, updateRecords }: 
   const values = Form.useWatch([], form);
 
   useEffect(() => {
-    if (id) {
-      const records = storage.getItem('members') || [];
-      const member = records.find((record: MemberRecord) => record.id === id);
-      if (member) {
-        form.setFieldsValue({ ...member, joinDate: dayjs(member.joinDate) });
-      } else {
-        closeModal();
-      }
+    if (!id) return;
+
+    const records = storage.getItem<MemberRecord[]>('members') ?? [];
+    const member = records.find((record) => record.id === id);
+
+    if (member) {
+      form.setFieldsValue({ ...member, joinDate: dayjs(member.joinDate) });
+    } else {
+      closeModal();
     }
-  }, [id]);
+  }, [closeModal, form, id]);
 
   useEffect(() => {
     form

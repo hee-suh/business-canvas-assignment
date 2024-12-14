@@ -7,22 +7,20 @@ export type StorageOperation = 'add' | 'update' | 'delete';
 type MemberForm = Omit<MemberRecord, 'id'>;
 
 const handleAdd = (memberRecord: MemberForm) => {
-  const members = storage.getItem('members') || [];
+  const members = storage.getItem<MemberRecord[]>('members') || [];
   members.push({ id: uuidv4(), ...memberRecord });
   storage.setItem('members', members);
 };
 
 const handleUpdate = (id: string, memberRecord: MemberForm) => {
-  let members = storage.getItem('members') || [];
-  members = members.map((member: MemberRecord) =>
-    member.id === id ? { id, ...memberRecord } : member,
-  );
+  let members = storage.getItem<MemberRecord[]>('members') || [];
+  members = members.map((member) => (member.id === id ? { id, ...memberRecord } : member));
   storage.setItem('members', members);
 };
 
 const handleDelete = (id: string) => {
-  let members = storage.getItem('members') || [];
-  members = members.filter((member: MemberRecord) => member.id !== id);
+  let members = storage.getItem<MemberRecord[]>('members') || [];
+  members = members.filter((member) => member.id !== id);
   storage.setItem('members', members);
 };
 
