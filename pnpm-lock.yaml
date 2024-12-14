@@ -61,6 +61,9 @@ devDependencies:
   prettier:
     specifier: 3.4.2
     version: 3.4.2
+  tslint-config-prettier:
+    specifier: ^1.18.0
+    version: 1.18.0
   typescript:
     specifier: ~5.6.2
     version: 5.6.2
@@ -2705,6 +2708,12 @@ packages:
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: false
+
+  /tslint-config-prettier@1.18.0:
+    resolution: {integrity: sha512-xPw9PgNPLG3iKRxmK7DWr+Ea/SzrvfHtjFt5LBl61gk2UBG/DB9kCXRjv+xyIU1rUtnayLeMUVJBcMX8Z17nDg==}
+    engines: {node: '>=4.0.0'}
+    hasBin: true
+    dev: true
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
