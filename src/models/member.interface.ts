@@ -1,11 +1,18 @@
-import type { BaseField, SelectField } from '@/models/field.interface';
-
-type MemberName = 'name' | 'address' | 'memo' | 'joinDate' | 'job' | 'emailSubscription';
-type MemberLabel = '이름' | '주소' | '메모' | '가입일' | '직업' | '이메일 수신 동의';
+import type {
+  CheckboxField,
+  DateField,
+  SelectField,
+  TextAreaField,
+  TextField,
+} from '@/models/field.interface';
 
 export type MemberField =
-  | BaseField<Exclude<MemberName, 'job'>, Exclude<MemberLabel, '직업'>>
-  | SelectField<Extract<MemberName, 'job'>, Extract<MemberLabel, '직업'>>;
+  | (TextField & { name: 'name'; label: '이름' })
+  | (TextField & { name: 'address'; label: '주소' })
+  | (TextAreaField & { name: 'memo'; label: '메모' })
+  | (DateField & { name: 'joinDate'; label: '가입일' })
+  | (SelectField & { name: 'job'; label: '직업' })
+  | (CheckboxField & { name: 'emailSubscription'; label: '이메일 수신 동의' });
 
 type Job = '개발자' | 'PO' | '디자이너';
 

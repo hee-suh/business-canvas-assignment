@@ -1,16 +1,28 @@
-export interface BaseField<TName extends string = string, TLabel extends string = string> {
-  type: 'text' | 'textarea' | 'date' | 'checkbox';
-  name: TName;
-  label: TLabel;
+export interface CommonField {
+  name: string;
+  label: string;
   required: boolean;
 }
 
-export interface SelectField<TName extends string = string, TLabel extends string = string> {
+export interface TextField extends CommonField {
+  type: 'text';
+}
+
+export interface TextAreaField extends CommonField {
+  type: 'textarea';
+}
+
+export interface DateField extends CommonField {
+  type: 'date';
+}
+
+export interface CheckboxField extends CommonField {
+  type: 'checkbox';
+}
+
+export interface SelectField extends CommonField {
   type: 'select';
-  name: TName;
-  label: TLabel;
-  required: boolean;
   options: string[];
 }
 
-export type Field = BaseField | SelectField;
+export type Field = TextField | TextAreaField | DateField | CheckboxField | SelectField;
